@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { 
   DollarSign, 
   Shield, 
@@ -16,6 +16,13 @@ const Index = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const domainPrice = 4999;
+  const contactEmail = "sales@domain.com"; // The email address where inquiries should be sent
+
+  const handleBuyNow = () => {
+    const subject = encodeURIComponent("Interest in purchasing domain.com");
+    const body = encodeURIComponent("Hello,\n\nI am interested in purchasing domain.com listed for $4,999.\n\nPlease provide more information about the purchase process.\n\nBest regards");
+    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,13 +32,6 @@ const Index = () => {
     });
     setEmail('');
     setMessage('');
-  };
-
-  const handleBuyNow = () => {
-    toast({
-      title: "Redirecting to payment...",
-      description: "Please wait while we redirect you to our secure payment page.",
-    });
   };
 
   return (
@@ -53,7 +53,7 @@ const Index = () => {
               className="bg-primary hover:bg-primary/90 text-white"
             >
               <DollarSign className="mr-2 h-5 w-5" />
-              Buy Now
+              Contact to Buy
             </Button>
           </div>
         </div>
